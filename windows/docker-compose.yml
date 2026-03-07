@@ -1,0 +1,67 @@
+# Docker Compose for ROS2 Humble + Gazebo Harmonic
+# WINDOWS VERSION - WSL2/WSLg support
+
+services:
+  ros2-gazebo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ros2-humble-gazebo-harmonic:windows
+    container_name: ros2_course_container
+    
+    # Interactive terminal
+    stdin_open: true
+    tty: true
+    
+    # Environment variables for Windows display
+    environment:
+      # For WSLg (Windows 11) - automatic GUI support
+      - DISPLAY=:0
+      - WAYLAND_DISPLAY=wayland-0
+      - XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir
+      - PULSE_SERVER=/mnt/wslg/PulseServer
+      # For VcXsrv (Windows 10) - uncomment and comment above
+      # - DISPLAY=host.docker.internal:0.0
+      - QT_X11_NO_MITSHM=1
+      - LIBGL_ALWAYS_SOFTWARE=1  # Software rendering for compatibility
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      - GZ_SIM_RESOURCE_PATH=/home/ros2user/ros2_ws/src
+    
+    # Volume mounts
+    volumes:
+      # Mount workspace for persistent code storage
+      - ./ros2_ws:/home/ros2user/ros2_ws:rw
+      # WSLg mounts for GUI (Windows 11)
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /mnt/wslg:/mnt/wslg:rw
+    
+    # Not using host network on Windows - use bridge with port mapping if needed
+    # network_mode: bridge
+    
+    # For ROS2 DDS communication between containers
+    ports:
+      - "11311:11311"  # ROS master (not used in ROS2 but kept for compatibility)
+
+# ============================================================
+# ALTERNATIVE: VcXsrv Configuration (Windows 10)
+# If you're using Windows 10 or prefer VcXsrv, use this service instead
+# ============================================================
+#
+#   ros2-gazebo-vcxsrv:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     image: ros2-humble-gazebo-harmonic:windows-vcxsrv
+#     container_name: ros2_course_container
+#     stdin_open: true
+#     tty: true
+#     environment:
+#       - DISPLAY=host.docker.internal:0.0
+#       - QT_X11_NO_MITSHM=1
+#       - LIBGL_ALWAYS_SOFTWARE=1
+#       - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+#       - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+#       - GZ_SIM_RESOURCE_PATH=/home/ros2user/ros2_ws/src
+#     volumes:
+#       - ./ros2_ws:/home/ros2user/ros2_ws:rw

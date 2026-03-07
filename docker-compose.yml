@@ -48,19 +48,3 @@ services:
     # Privileged mode may be needed for some hardware access
     privileged: false
     
-    # Resource limits (adjust based on student machine specs)
-    # Uncomment to limit resources if needed
-    # deploy:
-    #   resources:
-    #     limits:
-    #       cpus: '4'
-    #       memory: 8G
-
-# Optional: Additional service for running multiple instances
-# Useful for multi-robot simulations
-  # ros2-gazebo-node2:
-  #   extends:
-  #     service: ros2-gazebo
-  #   container_name: ros2_course_node2
-  #   environment:
-  #     - ROS_DOMAIN_ID=1

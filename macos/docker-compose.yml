@@ -1,0 +1,41 @@
+# Docker Compose for ROS2 Humble + Gazebo Harmonic
+# macOS VERSION - XQuartz support
+
+services:
+  ros2-gazebo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ros2-humble-gazebo-harmonic:macos
+    container_name: ros2_course_container
+    
+    # Interactive terminal
+    stdin_open: true
+    tty: true
+    
+    # Environment variables for macOS display via XQuartz
+    environment:
+      - DISPLAY=host.docker.internal:0
+      - QT_X11_NO_MITSHM=1
+      - LIBGL_ALWAYS_SOFTWARE=1  # Required for macOS - no GPU passthrough
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      - GZ_SIM_RESOURCE_PATH=/home/ros2user/ros2_ws/src
+    
+    # Volume mounts
+    volumes:
+      # Mount workspace for persistent code storage
+      - ./ros2_ws:/home/ros2user/ros2_ws:rw
+      # XQuartz socket - varies by macOS version
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    
+    # Port mapping for ROS2 (if not using host network)
+    ports:
+      - "11311:11311"
+
+# ============================================================
+# Apple Silicon (M1/M2/M3) Notes:
+# - Docker automatically handles ARM64 emulation
+# - Performance may be slower than native x86_64
+# - Software rendering (LIBGL_ALWAYS_SOFTWARE=1) is required
+# ============================================================

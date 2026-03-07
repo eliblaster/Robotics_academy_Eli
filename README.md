@@ -1,223 +1,117 @@
 # ROS2 Humble + Gazebo Harmonic Docker Setup
 
-This Docker environment provides a complete ROS2 Humble and Gazebo Harmonic setup for the robotics academy course.
+This Docker environment provides a complete ROS2 Humble and Gazebo Harmonic setup for the robotics course.
 
-## Prerequisites
+## Choose Your Operating System
 
-### All Platforms
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
+We provide optimized Docker configurations for each operating system:
 
-### Windows
-1. Install [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop/)
-2. Enable WSL2 backend in Docker Desktop settings
-3. Install an X Server (choose one):
-   - **Option A (Recommended)**: Use WSL2 with WSLg (Windows 11) - GUI works automatically
-   - **Option B**: Install [VcXsrv](https://sourceforge.net/projects/vcxsrv/) or [X410](https://x410.dev/)
+| OS | Folder | Quick Start |
+|----|--------|-------------|
+| **Linux** | [`linux/`](linux/) | `./start.sh` |
+| **Windows** | [`windows/`](windows/) | `.\start.ps1` or `start.bat` |
+| **macOS** | [`macos/`](macos/) | `./start.sh` |
 
-**If using VcXsrv on Windows:**
-```powershell
-# Launch VcXsrv with these settings:
-# - Multiple windows
-# - Start no client
-# - Check "Disable access control"
-# Then set DISPLAY variable:
-set DISPLAY=host.docker.internal:0
+Navigate to your OS folder and follow the README instructions there.
+
+## What's Included
+
+- **ROS2 Humble** - Full desktop installation
+- **Gazebo Harmonic** - Latest Gazebo simulator
+- **ROS2-Gazebo Bridge** - Integration packages
+- **Development Tools** - colcon, vcstool, rosdep
+- **Visualization** - RViz2, rqt tools
+- **Common Packages** - xacro, robot_state_publisher, teleop
+
+## Directory Structure
+
+```
+.
+├── linux/              # Linux Docker setup
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   ├── start.sh
+│   ├── stop.sh
+│   └── README.md
+├── windows/            # Windows Docker setup
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   ├── start.ps1
+│   ├── start.bat
+│   ├── stop.ps1
+│   └── README.md
+├── macos/              # macOS Docker setup
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   ├── start.sh
+│   ├── stop.sh
+│   └── README.md
+└── README.md           # This file
 ```
 
-### Linux
-```bash
-# Allow X11 forwarding
-xhost +local:docker
-```
+## Quick Start (All Platforms)
 
-### macOS
-1. Install [XQuartz](https://www.xquartz.org/)
-2. Open XQuartz → Preferences → Security → Enable "Allow connections from network clients"
-3. Restart XQuartz
-```bash
-xhost +localhost
-export DISPLAY=host.docker.internal:0
-```
+1. **Install Docker Desktop**
+   - Download from: https://www.docker.com/products/docker-desktop/
 
-## Quick Start
+2. **Navigate to your OS folder**
+   ```bash
+   cd linux/    # or windows/ or macos/
+   ```
 
-### 1. Clone/Download this folder
-Make sure you have all files:
-- `Dockerfile`
-- `docker-compose.yml`
-- `README.md` (this file)
+3. **Run the start script**
+   - Linux/macOS: `./start.sh`
+   - Windows: `.\start.ps1` or double-click `start.bat`
 
-### 2. Build the Docker image
-```bash
-docker-compose build
-```
-*This may take 10-20 minutes on first run.*
+4. **Test the installation** (inside the container)
+   ```bash
+   ros2 topic list
+   gz sim shapes.sdf
+   ```
 
-### 3. Start the container
-```bash
-docker-compose up -d
-```
+## ROS2 Workspace
 
-### 4. Enter the container
-```bash
-docker exec -it ros2_course_container bash
-```
+Each OS setup creates a `ros2_ws/` folder in the respective directory:
+- `linux/ros2_ws/`
+- `windows/ros2_ws/`
+- `macos/ros2_ws/`
 
-### 5. Test the installation
-Inside the container:
-```bash
-# Test ROS2
-ros2 topic list
+This folder is **shared** between your host machine and the container:
+- Edit code with your favorite IDE on your computer
+- Build and run in the container
+- Changes persist even after restarting the container
 
-# Test Gazebo Harmonic
-gz sim shapes.sdf
-```
-
-## Usage Guide
-
-### Starting/Stopping the Container
-```bash
-# Start
-docker-compose up -d
-
-# Stop
-docker-compose down
-
-# Restart
-docker-compose restart
-```
-
-### Working with ROS2
-Inside the container, your workspace is at `~/ros2_ws`. Use these helpful aliases:
+## Helpful Aliases (Inside Container)
 
 | Alias | Command | Description |
 |-------|---------|-------------|
-| `cb` | `colcon build --symlink-install` | Build the workspace |
-| `sw` | `source install/setup.bash` | Source the workspace |
-| `cbsw` | Build + Source | Combined build and source |
+| `cb` | `colcon build --symlink-install` | Build workspace |
+| `sw` | `source install/setup.bash` | Source workspace |
+| `cbsw` | Build + Source | Combined |
 
-### Creating a New Package
-```bash
-cd ~/ros2_ws/src
-ros2 pkg create --build-type ament_cmake my_package
-# or for Python:
-ros2 pkg create --build-type ament_python my_python_package
-```
+## Platform Notes
 
-### Running Gazebo with ROS2
-```bash
-# Launch empty world
-ros2 launch ros_gz_sim gz_sim.launch.py gz_args:="empty.sdf"
+### Linux
+- Best performance with native GPU support
+- NVIDIA GPU acceleration available (see Linux README)
+- Full ROS2 DDS communication with host network
 
-# With a robot (example)
-ros2 launch ros_gz_sim gz_sim.launch.py gz_args:="-r shapes.sdf"
-```
+### Windows
+- Requires WSL2 backend
+- Windows 11 (WSLg) recommended for best GUI support
+- Windows 10 users need VcXsrv
 
-### RViz2
-```bash
-rviz2
-```
+### macOS
+- Requires XQuartz for GUI applications
+- Apple Silicon (M1/M2/M3) works via emulation
+- Performance may be slower than Linux
 
-## Persistent Storage
+## Getting Help
 
-Your code is stored in the `./ros2_ws` folder on your host machine. This means:
-- Your code persists even if you delete the container
-- You can edit code with your favorite IDE on your host machine
-- Changes are immediately visible inside the container
-
-## Troubleshooting
-
-### GUI Not Working
-
-**Windows (WSL2):**
-```powershell
-# If using WSLg (Windows 11), it should work automatically
-# If not, try setting:
-$env:DISPLAY="host.docker.internal:0"
-docker-compose up -d
-```
-
-**Linux:**
-```bash
-xhost +local:docker
-# If still not working, check DISPLAY variable:
-echo $DISPLAY
-# Should show something like ":0" or ":1"
-```
-
-**macOS:**
-```bash
-# Make sure XQuartz is running
-xhost +localhost
-export DISPLAY=host.docker.internal:0
-```
-
-### Performance Issues
-If simulation is slow, try enabling software rendering (already set in docker-compose.yml):
-```yaml
-environment:
-  - LIBGL_ALWAYS_SOFTWARE=1
-```
-
-### "Permission denied" errors
-```bash
-# Fix ownership of workspace
-sudo chown -R ros2user:ros2user ~/ros2_ws
-```
-
-### Container won't start
-```bash
-# Check logs
-docker-compose logs
-
-# Remove and rebuild
-docker-compose down
-docker-compose build --no-cache
-docker-compose up -d
-```
-
-### Network Issues (ROS2 nodes can't communicate)
-Make sure `network_mode: host` is set in docker-compose.yml, and all students use the same `ROS_DOMAIN_ID`.
-
-## Useful Commands Reference
-
-### ROS2 Commands
-```bash
-# List all topics
-ros2 topic list
-
-# Echo a topic
-ros2 topic echo /topic_name
-
-# List all nodes
-ros2 node list
-
-# Get node info
-ros2 node info /node_name
-
-# Run teleop keyboard
-ros2 run teleop_twist_keyboard teleop_twist_keyboard
-```
-
-### Gazebo Commands
-```bash
-# Launch Gazebo with a world
-gz sim world.sdf
-
-# List Gazebo topics
-gz topic -l
-
-# Echo Gazebo topic
-gz topic -e -t /topic_name
-```
-
-## Support
-
-If you encounter issues:
-1. Check the Troubleshooting section above
-2. Search the [ROS2 Humble documentation](https://docs.ros.org/en/humble/)
-3. Check [Gazebo Harmonic documentation](https://gazebosim.org/docs/harmonic)
-4. Ask your instructor or TAs
+1. Check the OS-specific README in your folder
+2. Common issues are covered in Troubleshooting sections
+3. ROS2 Documentation: https://docs.ros.org/en/humble/
+4. Gazebo Documentation: https://gazebosim.org/docs/harmonic
 
 ---
-*ROS2 Course - Docker Environment v1.0*
+*ROS2 Course Docker Environment v1.0*
