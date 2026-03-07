@@ -13,6 +13,7 @@ We provide optimized Docker configurations for each operating system:
 | **macOS** | [`macos/`](macos/) | `./start.sh` |
 
 Navigate to your OS folder and follow the README instructions there.
+In general, we recommend to do the dual boot for better perfomences and compatibility, specially if you have macos.
 
 ## What's Included
 
