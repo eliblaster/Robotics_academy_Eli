@@ -54,6 +54,7 @@ RUN apt-get update && apt-get install -y \
     ros-humble-joint-state-publisher-gui \
     ros-humble-ros2-control \
     ros-humble-ros2-controllers \
+    ros-humble-gz-ros2-control \
     ros-humble-joy \
     ros-humble-joy-teleop \
     ros-humble-robot-localization \
