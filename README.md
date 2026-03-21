@@ -62,7 +62,7 @@ A fully pre-configured Docker image based on **Ubuntu 22.04 (Jammy)** containing
 
 ### Step 1 — Choose your OS setup
 
-> We strongly recommend **dual-booting Linux** for the best performance and compatibility, especially on macOS. The Docker setup works on all platforms but Linux gives native GPU acceleration and zero emulation overhead.
+> We strongly recommend **dual-booting Linux** for the best performance and compatibility, especially on windows. The Docker setup works on all platforms but Linux gives native GPU acceleration and zero emulation overhead.
 
 | OS | Folder | Start command |
 |----|--------|---------------|
