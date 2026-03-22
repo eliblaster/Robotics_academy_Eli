@@ -125,19 +125,10 @@ Once running, the container exposes this layout at `/home/ros2user/ros2_ws/`:
 
 **`src/`** — this is your working area. It maps directly to `<OS>/ros2_ws/src/` on your host machine, so you can edit files with any IDE and build them inside the container. Everything here persists across container restarts.
 
-**`examples/`** — read-only reference workspaces. To experiment with an example, copy it into `src/`:
+**`examples/`** — read-write reference workspaces. In this folder we will be presenting you some practical examples about how things works. While you are practicing by your self, you can refer to this material as a guide for creating your package and all the required setup and ROS2 functionalities for running your Gazebo simulation with your robot.
 
-```bash
-cp -r ~/ros2_ws/examples/Section6_TF2_Library/bumperbot_ws/src/* ~/ros2_ws/src/
-cb    # alias for: colcon build --symlink-install
-sw    # alias for: source install/setup.bash
-```
-
-**`tutorials/`** — written documentation. Open the markdown files in your host IDE or read them in the terminal with:
-
-```bash
-cat ~/ros2_ws/tutorials/tf2/README.md
-```
+**`tutorials/`** — written documentation. Open the markdown files in your host IDE.
+This section provides you some further explanation about some ROS2 functionalities that are not fully covered during lecture. All the written markdowns are referenced to the official ROS2 wiki documentation
 
 ---
 
