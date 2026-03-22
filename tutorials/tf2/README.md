@@ -40,7 +40,7 @@ sudo apt-get update && sudo apt-get install -y \
     ros-humble-tf2-ros \
     ros-humble-tf2-tools \
     ros-humble-rviz2 \
-    python3-tf-transformations
+    ros-humble-tf-transformations
 ```
 
 > All of these are already pre-installed in the Docker image provided with this course.

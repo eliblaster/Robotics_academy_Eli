@@ -46,7 +46,7 @@ A fully pre-configured Docker image based on **Ubuntu 22.04 (Jammy)** containing
 - **Joy** + **teleop** — joystick and keyboard teleoperation
 - **Build tools** — `colcon`, `rosdep`, `vcstool`, `cmake`
 - **Serial libraries** — `libserial-dev`, `python3-serial`, `python3-smbus`
-- **Python utilities** — `python3-tf-transformations`
+- **Python utilities** — `ros-humble-tf-transformations`
 
 ### Course Content
 

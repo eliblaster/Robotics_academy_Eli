@@ -26,8 +26,8 @@ services:
     volumes:
       # Mount workspace for persistent code storage
       - ./ros2_ws:/home/ros2user/ros2_ws:rw
-      # Course examples and tutorials (read-only reference material)
-      - ../examples:/home/ros2user/ros2_ws/examples:ro
+      # Course examples mounted read-write to allow editing/building in-place
+      - ../examples:/home/ros2user/ros2_ws/examples:rw
       - ../tutorials:/home/ros2user/ros2_ws/tutorials:ro
       # XQuartz socket - varies by macOS version
       - /tmp/.X11-unix:/tmp/.X11-unix:rw

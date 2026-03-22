@@ -17,6 +17,12 @@ mkdir -p ./ros2_ws/src
 echo "[3/4] Starting Docker container..."
 docker-compose up -d
 
+if [ $? -ne 0 ]; then
+    echo "ERROR: Failed to start container."
+    echo "Check the Docker build logs above and ensure Docker is running."
+    exit 1
+fi
+
 # Enter the container
 echo "[4/4] Entering container..."
 echo ""
