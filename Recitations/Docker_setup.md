@@ -1,4 +1,29 @@
-# Set up(docker)
+# ROS2 development setup
+
+This is a guide to make the setup process easier for everyone, some may find the steps trivial but it's to get everybody on board before we start the development.
+
+### Install Docker
+
+[﻿https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/)
+
+**Possible errors**
+
+- you have to enable hardware assisted virtualization on windows [look here](https://forums.docker.com/t/hardware-assisted-virtualization-and-data-execution-protection-must-be-enabled-in-the-bios/109073)
+- if you have an older version of operating system you may want to install an older version of docker [﻿look here](https://docs.docker.com/desktop/release-notes/)
+
+### Description
+
+This Docker container is set up for running a robotic simulation environment with the following specifications:
+
+**ROS Version:** The container is configured to run with ROS (Robot Operating System) in the "Humble" release.
+
+**Gazebo:** Gazebo Ignition, a simulation tool
+
+**Operating System:** The base operating system is Ubuntu 22.04.3 LTS.
+
+---
+
+# Docker Container
 
 - **important note**: in docker before executing the following commands you have to set in preferences -> resources -> file sharing the path to the github folder
 
