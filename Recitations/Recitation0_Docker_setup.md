@@ -11,6 +11,18 @@ This is a guide to make the setup process easier for everyone, some may find the
 - you have to enable hardware assisted virtualization on windows [look here](https://forums.docker.com/t/hardware-assisted-virtualization-and-data-execution-protection-must-be-enabled-in-the-bios/109073)
 - if you have an older version of operating system you may want to install an older version of docker [﻿look here](https://docs.docker.com/desktop/release-notes/)
 
+### Install GitHub Desktop
+
+[https://desktop.github.com/](https://desktop.github.com/)
+
+GitHub Desktop can be used to clone the repository and manage commits with a graphical interface.
+
+### Install VS Code
+
+[https://code.visualstudio.com/](https://code.visualstudio.com/)
+
+VS Code will be used to open the repository and edit the project files.
+
 ### Description
 
 This Docker container is set up for running a robotic simulation environment with the following specifications:
