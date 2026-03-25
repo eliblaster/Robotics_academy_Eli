@@ -16,9 +16,9 @@ If you installed a different ROS 2 distribution, replace `humble` in the exam
 
 ## 2  Creating a Workspace
 
-A *workspace* is simply a directory that mirrors your project. It contains your source code (`src/`), build products (`build/`) and installed artifacts (`install/`). We will call our workspace `` because later chapters will extend it into a complete mobile‑robot stack.
+A *workspace* is simply a directory that mirrors your project. It contains your source code (`src/`), build products (`build/`) and installed artifacts (`install/`). We will call our workspace racademy_ws.
 
-If you have your own docker setup or you are in vs code you need to:
+If you have your own docker setup or you are in vs code you need to do this first:
 source ROS 2 on the terminal
 
 ```
