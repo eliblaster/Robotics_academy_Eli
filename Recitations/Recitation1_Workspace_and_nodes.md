@@ -26,10 +26,17 @@ source ROS 2 on the terminal
 ```
 
 if you have the one in this guide you can start here:
+enter in a terminal on your host machine
+
+```bash
+docker exec -it --user ubuntu racademy bash
+```
+
+now you are inside the docker container
 
 ```bash
 # 1. Move to a convenient parent directory (adjust to taste)
-$ cd github/<your_repo>/<your_ros_ws>
+$ cd github/<your_ros_ws>
 
 # 2. Create the workspace and its source folder
 $ mkdir -p racademy_ws/src
@@ -49,7 +56,7 @@ $ colcon build    # Nothing to compile yet, but this prepares directory structur
 You should now see three folders:
 
 ```
-oversonic_ws/
+racademy_ws/
 ├── build/    # CMake & Python byte‑code output
 ├── install/  # Ready‑to‑run executables, libraries, resources
 └── src/      # Your source code lives here
@@ -72,7 +79,7 @@ colcon build --cmake-clean-cache
 ROS 2 supports several *build types*. We will create **one Python package** and (optionally) **one C++ package** so you can compare idioms later.
 
 ```bash
-# Inside oversonic_ws/src
+# Inside racademy_ws/src
 $ cd src/
 
 # 3.1  Python package
@@ -89,14 +96,14 @@ $ colcon build
 NOTE: After the build finishes, **always** *source* the local overlay so that your shell can discover the newly built packages:
 
 ```bash
-# Option A: source via absolute path
+# source via absolute path
 $ source install/setup.bash
 ```
 
 Confirm everything worked:
 
 ```bash
-$ ros2 pkg list | grep oversonic
+$ ros2 pkg list | grep racademy
 racademy_cpp_examples
 racademy_py_examples
 ```
