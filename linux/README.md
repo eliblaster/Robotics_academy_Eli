@@ -36,11 +36,11 @@ chmod +x start.sh stop.sh
 xhost +local:docker
 
 # Build and start
-docker compose build
-docker compose up -d
+docker compose build # run it only if you don't have installed yet the docker image
+docker compose up -d # run it to activate the container
 
 # Enter the container
-docker compose exec -it ros2-gazebo bash
+docker compose exec -it ros2-gazebo bash # run it for executing and enetering into the container
 ```
 
 ## Testing the Installation
