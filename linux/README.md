@@ -35,15 +35,12 @@ chmod +x start.sh stop.sh
 # Allow X11 forwarding
 xhost +local:docker
 
-# Create workspace
-mkdir -p ros2_ws/src
-
 # Build and start
-docker-compose build
-docker-compose up -d
+docker compose build
+docker compose up -d
 
 # Enter the container
-docker exec -it ros2_course_container bash
+docker compose exec -it ros2-gazebo bash
 ```
 
 ## Testing the Installation
