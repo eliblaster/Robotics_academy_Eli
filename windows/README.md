@@ -56,10 +56,10 @@ mkdir ros2_ws\src -Force
 docker-compose build
 
 # Start the container
-docker-compose up -d
+docker compose up -d
 
 # Enter the container
-docker exec -it ros2_course_container bash
+docker compose exec -it ros2-gazebo bash
 ```
 
 ## Windows 10 Users (VcXsrv)
