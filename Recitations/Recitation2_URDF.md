@@ -217,14 +217,7 @@ $ source install/setup.bash
 
 ## 5 Visualising the Model in RViz
 
-The *urdf_tutorial* package ships a convenient launch file that expands xacro and starts RViz configured for robot display. Install it once:
-
-```bash
-$ sudo apt update
-$ sudo apt install ros-humble-urdf-tutorial
-```
-
-Then launch:
+launch:
 
 ```bash
 $ ros2 launch urdf_tutorial display.launch.py \
