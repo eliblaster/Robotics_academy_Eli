@@ -9,4 +9,5 @@ echo "=========================================="
 echo "[1/4] Configuring X11 permissions..."
 xhost +local:docker > /dev/null 2>&1
 
-docker exec -it ros2-gazebo bash
+docker compose up -d
+docker compose exec -it ros2-gazebo bash
